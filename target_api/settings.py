@@ -75,11 +75,19 @@ WSGI_APPLICATION = 'target_api.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'django_target_api',
+    #     'USER': 'agustinmartinez',
+    # },
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'django_target_api',
-        'USER': 'agustinmartinez',
-    }
+        'NAME': 'ci_db',
+        'USER': 'ci_user',
+        'PASSWORD': 'ci_pass',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    },
 }
 
 
