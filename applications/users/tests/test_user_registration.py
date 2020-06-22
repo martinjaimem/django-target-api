@@ -5,6 +5,7 @@ from rest_framework.test import APITestCase, APIClient, APIRequestFactory
 from rest_framework.views import status
 
 from .factories import UserFactory
+from applications.users.models import User
 
 class UserRegistrationTests(APITestCase):
     url = '/api/v1/auth/registration/'
@@ -29,6 +30,16 @@ class UserRegistrationTests(APITestCase):
 
         self.assertEqual(len(mail.outbox), 1)
         self.assertIn(params['email'], mail.outbox[0].to)
+
+    def test_all_params_right_store_date(self):
+        params = self.build_params()
+        response = self.client.post(self.url, params, format=self.format)
+
+        last_user = User.objects.last()
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(last_user.email, params['email'])
+        self.assertEqual(last_user.name, params['name'])
+        self.assertEqual(last_user.gender, params['gender'])
 
     def test_missing_password_respond_failure(self):
         params = self.build_params()

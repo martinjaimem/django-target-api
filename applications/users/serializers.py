@@ -6,9 +6,6 @@ from applications.users.models import User
 
 
 class UserSerializer(UserDetailsSerializer):
-    gender = serializers.ChoiceField(choices=User.Gender.choices, required=True)
-    name = serializers.CharField(required=True, max_length=250)
-
     class Meta:
         model = User
         fields = ['id', 'email', 'name', 'gender']
@@ -32,4 +29,6 @@ class RestAuthRegisterSerializer(RegisterSerializer):
         return {
             'password1': self.validated_data.get('password1', ''),
             'email': self.validated_data.get('email', ''),
+            'gender': self.validated_data.get('gender', ''),
+            'name': self.validated_data.get('name', ''),
             }
