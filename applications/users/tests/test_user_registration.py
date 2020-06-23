@@ -4,7 +4,7 @@ import factory
 from rest_framework.test import APITestCase, APIClient, APIRequestFactory
 from rest_framework.views import status
 
-from .factories import UserFactory
+from .factories import BaseUserFactory
 from applications.users.models import User
 
 class UserRegistrationTests(APITestCase):
@@ -13,7 +13,7 @@ class UserRegistrationTests(APITestCase):
 
     @staticmethod
     def build_params():
-        params = factory.build(dict, FACTORY_CLASS=UserFactory)
+        params = factory.build(dict, FACTORY_CLASS=BaseUserFactory)
         params['password1'] = params['password2'] = params['password']
         return params
 
@@ -70,7 +70,7 @@ class UserRegistrationTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_exisiting_email_respond_failure(self):
-        user = UserFactory()
+        user = BaseUserFactory()
         params = self.build_params()
         params['email'] = user.email
 
