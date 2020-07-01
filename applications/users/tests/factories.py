@@ -1,5 +1,5 @@
 import factory
-from faker import Factory, Faker
+from faker import Faker
 from faker.providers import misc, person
 
 from applications.users.models import User
