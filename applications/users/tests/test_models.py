@@ -1,6 +1,5 @@
 from django.test import TestCase
 
-from applications.users.models import User
 from .factories import UserFactory
 
 
