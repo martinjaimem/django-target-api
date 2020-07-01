@@ -1,6 +1,6 @@
 import factory
 from allauth.account.models import EmailAddress
-from faker import Factory, Faker
+from faker import Faker
 from faker.providers import misc, person
 
 from applications.users.models import User
@@ -44,5 +44,5 @@ class UserFactory(BaseUserFactory):
 
     class Params:
         confirmed = factory.Trait(
-            email_address = factory.RelatedFactory(EmailAddressFactory, 'user', verified=True)
+            email_address=factory.RelatedFactory(EmailAddressFactory, 'user', verified=True)
         )

@@ -1,5 +1,4 @@
-from django.urls import include, path, re_path
-from dj_rest_auth.registration.views import VerifyEmailView
+from django.urls import include, path
 
 urlpatterns = [
     path('account/', include('allauth.urls')),
