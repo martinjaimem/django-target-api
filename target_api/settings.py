@@ -37,13 +37,27 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # django apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # external apps
+    'allauth',
+    'allauth.account',
+    'django_extensions',
+    'dj_rest_auth',
+    'dj_rest_auth.registration',
     'rest_framework',
+    'rest_framework.authtoken',
+
+    # project apps
+    'api',
+    'applications.users',
 ]
 
 MIDDLEWARE = [
@@ -130,8 +144,43 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 # django-rest-framework
 REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10
+    'PAGE_SIZE': 10,
 }
+
+# dj-rest-auth
+SITE_ID = 1
+
+REST_AUTH_SERIALIZERS = {
+    'LOGIN_SERIALIZER': 'applications.users.serializers.RestAuthLoginSerializer',
+    'USER_DETAILS_SERIALIZER': 'applications.users.serializers.UserSerializer',
+}
+
+REST_AUTH_REGISTER_SERIALIZERS = {
+    'REGISTER_SERIALIZER': 'applications.users.serializers.RestAuthRegisterSerializer',
+}
+
+AUTHENTICATION_BACKENDS = (
+ "django.contrib.auth.backends.ModelBackend",
+ "allauth.account.auth_backends.AuthenticationBackend",
+)
+
+ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = False
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = env('APP_SITE')
+AUTH_USER_MODEL = 'users.User'
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+ACCOUNT_USER_EMAIL_FIELD = 'email'
+ACCOUNT_LOGOUT_ON_GET = True
