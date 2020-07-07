@@ -1,3 +1,4 @@
+from allauth.account.adapter import get_adapter
 from rest_framework import serializers
 from dj_rest_auth.registration.serializers import RegisterSerializer
 from dj_rest_auth.serializers import LoginSerializer, UserDetailsSerializer
@@ -30,3 +31,10 @@ class RestAuthRegisterSerializer(RegisterSerializer):
             'gender': self.validated_data.get('gender', ''),
             'name': self.validated_data.get('name', ''),
             }
+
+    def custom_signup(self, request, user):
+        user.name = self.cleaned_data.get('name')
+        user.gender = self.cleaned_data.get('gender')
+
+        adapter = get_adapter()
+        adapter.save_user(request, user, self)
