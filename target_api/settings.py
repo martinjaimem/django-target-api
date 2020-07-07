@@ -185,4 +185,3 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_USER_EMAIL_FIELD = 'email'
 ACCOUNT_LOGOUT_ON_GET = True
-ACCOUNT_ADAPTER = 'applications.users.adapter.UserAccountAdapter'
