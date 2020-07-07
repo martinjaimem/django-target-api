@@ -1,5 +1,6 @@
 from allauth.account.adapter import DefaultAccountAdapter
 
+
 class UserAccountAdapter(DefaultAccountAdapter):
 
     def save_user(self, request, user, form, commit=True):
@@ -7,4 +8,4 @@ class UserAccountAdapter(DefaultAccountAdapter):
         user.name = data.get('name')
         user.gender = data.get('gender')
 
-        super(UserAccountAdapter, self).save_user(request, user, form, commit)
+        super().save_user(request, user, form, commit)

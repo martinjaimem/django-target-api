@@ -1,14 +1,16 @@
 from django.core import mail
 from django.test import TestCase
 import factory
+from rest_framework.reverse import reverse
 from rest_framework.test import APITestCase, APIClient, APIRequestFactory
 from rest_framework.views import status
 
 from .factories import UserFactory
 from applications.users.models import User
 
+
 class UserRegistrationTests(APITestCase):
-    url = '/api/v1/auth/registration/'
+    url = reverse('rest_register')
     format = 'json'
 
     @staticmethod
@@ -16,7 +18,6 @@ class UserRegistrationTests(APITestCase):
         params = factory.build(dict, FACTORY_CLASS=UserFactory)
         params['password1'] = params['password2'] = params['password']
         return params
-
 
     def test_all_params_right_respond_success(self):
         params = self.build_params()

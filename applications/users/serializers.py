@@ -18,8 +18,6 @@ class RestAuthLoginSerializer(LoginSerializer):
 
 
 class RestAuthRegisterSerializer(RegisterSerializer):
-    email = serializers.EmailField(required=True)
-    password1 = serializers.CharField(write_only=True)
     gender = serializers.ChoiceField(choices=User.Gender.choices, required=True)
     name = serializers.CharField(required=True, max_length=250)
 
