@@ -33,6 +33,8 @@ DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = []
 
+SITE_ID = 1
+
 
 # Application definition
 
@@ -42,18 +44,18 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 
     # external apps
+    'rest_framework',
+    'rest_framework.authtoken',
+    'dj_rest_auth',
+    'dj_rest_auth.registration',
     'allauth',
     'allauth.account',
     'django_extensions',
-    'dj_rest_auth',
-    'dj_rest_auth.registration',
-    'rest_framework',
-    'rest_framework.authtoken',
 
     # project apps
     'api',
@@ -157,7 +159,6 @@ REST_FRAMEWORK = {
 }
 
 # dj-rest-auth
-SITE_ID = 1
 
 REST_AUTH_SERIALIZERS = {
     'LOGIN_SERIALIZER': 'applications.users.serializers.RestAuthLoginSerializer',

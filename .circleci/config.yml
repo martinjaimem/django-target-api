@@ -30,6 +30,21 @@ jobs:
           command: |
             sudo apt-get install libgdal-dev
       - run:
+          name: Check migrations
+          command: |
+            . venv/bin/activate
+            coverage run --omit=venv/* --source="." manage.py showmigrations
+      - run:
+          name: run migrations
+          command: |
+            . venv/bin/activate
+            coverage run --omit=venv/* --source="." manage.py migrate
+      - run:
+          name: Check migrations
+          command: |
+            . venv/bin/activate
+            coverage run --omit=venv/* --source="." manage.py showmigrations
+      - run:
           name: Running tests
           command: |
             . venv/bin/activate
