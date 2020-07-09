@@ -7,8 +7,8 @@ from rest_framework.views import status
 from .factories import BaseUserFactory
 from applications.users.models import User
 
+
 class UserRegistrationTests(APITestCase):
-    url = '/api/v1/auth/registration/'
     format = 'json'
 
     @staticmethod
@@ -16,7 +16,6 @@ class UserRegistrationTests(APITestCase):
         params = factory.build(dict, FACTORY_CLASS=BaseUserFactory)
         params['password1'] = params['password2'] = params['password']
         return params
-
 
     def test_all_params_right_respond_success(self):
         params = self.build_params()
