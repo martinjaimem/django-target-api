@@ -1,8 +1,7 @@
 from django.core import mail
-from django.test import TestCase
 import factory
 from rest_framework.reverse import reverse
-from rest_framework.test import APITestCase, APIClient, APIRequestFactory
+from rest_framework.test import APITestCase
 from rest_framework.views import status
 
 from .factories import BaseUserFactory
@@ -23,7 +22,7 @@ class UserRegistrationTests(APITestCase):
         params = self.build_params()
         response = self.client.post(self.url, params, format=self.format)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(response.data, { 'detail': 'Verification e-mail sent.' })
+        self.assertEqual(response.data, {'detail': 'Verification e-mail sent.'})
 
     def test_all_params_right_send_confirmation_email(self):
         params = self.build_params()
@@ -79,5 +78,5 @@ class UserRegistrationTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(
             response.json(),
-            { 'email': ['A user is already registered with this e-mail address.'] }
+            {'email': ['A user is already registered with this e-mail address.']}
         )

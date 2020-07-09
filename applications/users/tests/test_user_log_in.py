@@ -1,14 +1,9 @@
-from django.contrib.sites.models import Site
-from django.core import mail
-from django.test import TestCase
-import factory
+from faker import Faker
 from rest_framework.reverse import reverse
-from rest_framework.test import APITestCase, APIClient, APIRequestFactory
+from rest_framework.test import APITestCase
 from rest_framework.views import status
-from faker import Factory, Faker
 
 from .factories import UserFactory
-from applications.users.models import User
 
 
 class ConfirmedUserLogInTests(APITestCase):
@@ -21,7 +16,7 @@ class ConfirmedUserLogInTests(APITestCase):
     def setUp(self):
         self.password = self.fake.password(length=8)
         self.user = UserFactory(password=self.password, confirmed=True)
-        self.params = { 'email': self.user.email, 'password': self.password }
+        self.params = {'email': self.user.email, 'password': self.password}
 
     def test_all_params_right_respond_success(self):
         response = self.call_log_in()
@@ -58,7 +53,7 @@ class UnconfirmedUserLogInTests(APITestCase):
     def setUp(self):
         self.password = self.fake.password(length=8)
         self.user = UserFactory(password=self.password)
-        self.params = { 'email': self.user.email, 'password': self.password }
+        self.params = {'email': self.user.email, 'password': self.password}
 
     def test_all_params_right_responds_unconfirmed_email(self):
         response = self.call_log_in()
@@ -66,5 +61,5 @@ class UnconfirmedUserLogInTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(
             response.json(),
-            { 'non_field_errors': ['E-mail is not verified.'] }
+            {'non_field_errors': ['E-mail is not verified.']}
         )
