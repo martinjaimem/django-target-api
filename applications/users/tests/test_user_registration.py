@@ -1,6 +1,7 @@
 from django.core import mail
 from django.test import TestCase
 import factory
+from rest_framework.reverse import reverse
 from rest_framework.test import APITestCase, APIClient, APIRequestFactory
 from rest_framework.views import status
 
@@ -10,6 +11,9 @@ from applications.users.models import User
 
 class UserRegistrationTests(APITestCase):
     format = 'json'
+
+    def setUp(self):
+        self.url = reverse('rest_register')
 
     @staticmethod
     def build_params():
