@@ -2,6 +2,7 @@ from django.contrib.sites.models import Site
 from django.core import mail
 from django.test import TestCase
 import factory
+from rest_framework.reverse import reverse
 from rest_framework.test import APITestCase, APIClient, APIRequestFactory
 from rest_framework.views import status
 from faker import Factory, Faker
@@ -11,13 +12,14 @@ from applications.users.models import User
 
 
 class ConfirmedUserLogInTests(APITestCase):
-    url = '/api/v1/auth/login/'
     fake = Faker()
 
     def call_log_in(self):
         return self.client.post(self.url, self.params)
 
     def setUp(self):
+        self.url = reverse('rest_login')
+
         self.password = self.fake.password(length=8)
         self.user = UserFactory(password=self.password, confirmed=True)
         self.params = { 'email': self.user.email, 'password': self.password }
@@ -48,13 +50,14 @@ class ConfirmedUserLogInTests(APITestCase):
 
 
 class UnconfirmedUserLogInTests(APITestCase):
-    url = '/api/v1/auth/login/'
     fake = Faker()
 
     def call_log_in(self):
         return self.client.post(self.url, self.params)
 
     def setUp(self):
+        self.url = reverse('rest_login')
+
         self.password = self.fake.password(length=8)
         self.user = UserFactory(password=self.password)
         self.params = { 'email': self.user.email, 'password': self.password }

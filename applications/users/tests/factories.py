@@ -39,7 +39,6 @@ class BaseUserFactory(factory.django.DjangoModelFactory):
         return obj
 
 
-
 class UserFactory(BaseUserFactory):
     email_address = factory.RelatedFactory(EmailAddressFactory, 'user')
 
