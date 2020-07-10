@@ -7,13 +7,14 @@ from .factories import UserFactory
 
 
 class ConfirmedUserLogInTests(APITestCase):
-    url = reverse('rest_login')
     fake = Faker()
 
     def call_log_in(self):
         return self.client.post(self.url, self.params)
 
     def setUp(self):
+        self.url = reverse('rest_login')
+
         self.password = self.fake.password(length=8)
         self.user = UserFactory(password=self.password, confirmed=True)
         self.params = {'email': self.user.email, 'password': self.password}
@@ -44,13 +45,14 @@ class ConfirmedUserLogInTests(APITestCase):
 
 
 class UnconfirmedUserLogInTests(APITestCase):
-    url = reverse('rest_login')
     fake = Faker()
 
     def call_log_in(self):
         return self.client.post(self.url, self.params)
 
     def setUp(self):
+        self.url = reverse('rest_login')
+
         self.password = self.fake.password(length=8)
         self.user = UserFactory(password=self.password)
         self.params = {'email': self.user.email, 'password': self.password}
