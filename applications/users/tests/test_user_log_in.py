@@ -7,8 +7,11 @@ from .factories import UserFactory
 
 
 class ConfirmedUserLogInTests(APITestCase):
-    url = reverse('rest_login')
     fake = Faker()
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.url = reverse('rest_login')
 
     def call_log_in(self):
         return self.client.post(self.url, self.params)
@@ -44,8 +47,11 @@ class ConfirmedUserLogInTests(APITestCase):
 
 
 class UnconfirmedUserLogInTests(APITestCase):
-    url = reverse('rest_login')
     fake = Faker()
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.url = reverse('rest_login')
 
     def call_log_in(self):
         return self.client.post(self.url, self.params)

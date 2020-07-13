@@ -9,8 +9,11 @@ from applications.users.models import User
 
 
 class UserRegistrationTests(APITestCase):
-    url = reverse('rest_register')
     format = 'json'
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.url = reverse('rest_register')
 
     @staticmethod
     def build_params():
