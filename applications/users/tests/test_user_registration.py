@@ -11,14 +11,15 @@ from applications.users.models import User
 class UserRegistrationTests(APITestCase):
     format = 'json'
 
+    @classmethod
+    def setUpTestData(cls):
+        cls.url = reverse('rest_register')
+
     @staticmethod
     def build_params():
         params = factory.build(dict, FACTORY_CLASS=BaseUserFactory)
         params['password1'] = params['password2'] = params['password']
         return params
-
-    def setUp(self):
-        self.url = reverse('rest_register')
 
     def test_all_params_right_respond_success(self):
         params = self.build_params()
