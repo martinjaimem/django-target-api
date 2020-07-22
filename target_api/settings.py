@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.gis',
 
     # external apps
     'allauth',
@@ -54,10 +55,12 @@ INSTALLED_APPS = [
     'dj_rest_auth.registration',
     'rest_framework',
     'rest_framework.authtoken',
+    'rest_framework_gis',
 
     # project apps
     'api',
     'applications.users',
+    'applications.targets',
 ]
 
 MIDDLEWARE = [
@@ -96,7 +99,7 @@ WSGI_APPLICATION = 'target_api.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': env('DB_NAME'),
         'USER': env('DB_USER'),
         'PASSWORD': env('DB_PASSWORD'),

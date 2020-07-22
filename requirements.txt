@@ -5,6 +5,7 @@ coverage==4.3.4
 coveralls==1.1
 Django~=3.0.7
 djangorestframework~=3.11.0
+djangorestframework-gis==0.15
 docopt==0.6.2
 django-allauth==0.42.0
 django-environ==0.4.5
