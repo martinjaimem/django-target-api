@@ -21,4 +21,4 @@ class TargetSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Target
-        fields = ('latitude', 'longitude','owner', 'radius', 'title', 'topic',)
+        fields = ('id', 'latitude', 'longitude', 'owner', 'radius', 'title', 'topic', )

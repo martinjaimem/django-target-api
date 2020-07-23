@@ -5,7 +5,7 @@ from .views import TargetViewSet, TopicList
 
 
 router = DefaultRouter()
-router.register(r'', TargetViewSet)
+router.register(r'', TargetViewSet, basename='target')
 
 urlpatterns = [
     path('', include(router.urls)),

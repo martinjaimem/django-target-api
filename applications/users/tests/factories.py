@@ -24,7 +24,7 @@ class BaseUserFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = User
 
-    email = fake.email()
+    email = factory.LazyFunction(fake.email)
     password = fake.password(length=8)
     name = fake.name()
     gender = factory.Iterator(User.Gender.choices, getter=lambda x: x[0])
