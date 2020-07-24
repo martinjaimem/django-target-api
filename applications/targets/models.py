@@ -14,6 +14,8 @@ class Topic(models.Model):
 
 
 class Target(models.Model):
+    MAX_COUNT_TARGETS_PER_USER = 10
+
     location = models.PointField()
     owner = models.ForeignKey(User, on_delete=models.CASCADE, blank=False)
     radius = models.PositiveIntegerField()

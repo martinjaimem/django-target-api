@@ -88,8 +88,8 @@ class TargetCreateTest(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
-    def test_created_10_targets_responds_failure(self):
-        targets_count = 10
+    def test_created_targets_max_amount_responds_failure(self):
+        targets_count = Target.MAX_COUNT_TARGETS_PER_USER
         TargetFactory.create_batch(size=targets_count, owner=self.user)
 
         self.client.force_authenticate(user=self.user)
@@ -105,8 +105,8 @@ class TargetCreateTest(APITestCase):
             targets_count
         )
 
-    def test_created_9_targets_responds_success(self):
-        targets_count = 9
+    def test_created_targets_lower_max_amount_responds_success(self):
+        targets_count = Target.MAX_COUNT_TARGETS_PER_USER - 1
         TargetFactory.create_batch(size=targets_count, owner=self.user)
 
         self.client.force_authenticate(user=self.user)

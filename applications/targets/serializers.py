@@ -12,8 +12,6 @@ class TopicSerializer(serializers.ModelSerializer):
 
 
 class TargetSerializer(serializers.ModelSerializer):
-    MAX_COUNT_TARGETS_PER_USER = 10
-
     owner = serializers.ReadOnlyField(source='owner.id')
     latitude = serializers.FloatField(required=True, source='location.x')
     longitude = serializers.FloatField(required=True, source='location.y')
@@ -24,7 +22,7 @@ class TargetSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
         user = self.context['request'].user
-        if user.target_set.count() >= self.MAX_COUNT_TARGETS_PER_USER:
+        if user.target_set.count() >= Target.MAX_COUNT_TARGETS_PER_USER:
             raise serializers.ValidationError(_('Maximum number of targets exceeded'))
 
         return super().validate(data)
