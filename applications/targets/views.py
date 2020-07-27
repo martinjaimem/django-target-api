@@ -16,7 +16,7 @@ class TargetViewSet(viewsets.ModelViewSet):
         return self.request.user.target_set.all()
 
 
-class TopicList(generics.ListAPIView):
+class TopicList(mixins.ListModelMixin, GenericViewSet):
     queryset = Topic.objects.all()
     serializer_class = TopicSerializer
     permission_classes = [permissions.IsAuthenticated]
