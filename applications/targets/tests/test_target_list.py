@@ -11,11 +11,11 @@ class TargetCreateTest(APITestCase):
     def setUpTestData(cls):
         cls.url = reverse('target-list')
 
-    def call_targets_list(self):
-        return self.client.get(self.url)
-
     def setUp(self):
         self.user = UserFactory(confirmed=True)
+
+    def call_targets_list(self):
+        return self.client.get(self.url)
 
     def test_no_created_targets_return_empty(self):
         self.client.force_authenticate(user=self.user)

@@ -13,9 +13,6 @@ class TargetCreateTest(APITestCase):
     def setUpTestData(cls):
         cls.url = reverse('target-list')
 
-    def call_create_target(self):
-        return self.client.post(self.url, self.params)
-
     def setUp(self):
         self.user = UserFactory(confirmed=True)
         self.topic = TopicFactory()
@@ -25,6 +22,9 @@ class TargetCreateTest(APITestCase):
             owner=None,
             topic=self.topic.id,
         )
+
+    def call_create_target(self):
+        return self.client.post(self.url, self.params)
 
     def test_all_params_right_respond_success_and_data(self):
         self.client.force_authenticate(user=self.user)

@@ -11,11 +11,11 @@ class UserTopicListTest(APITestCase):
     def setUpTestData(cls):
         cls.url = reverse('target-topic-list')
 
-    def call_topics_list(self):
-        return self.client.get(self.url)
-
     def setUp(self):
         self.user = UserFactory(confirmed=True)
+
+    def call_topics_list(self):
+        return self.client.get(self.url)
 
     def test_no_created_topics_return_empty(self):
         self.client.force_authenticate(user=self.user)

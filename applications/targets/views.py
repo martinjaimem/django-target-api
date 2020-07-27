@@ -1,13 +1,12 @@
-from rest_framework import generics, permissions, viewsets
+from rest_framework import mixins, permissions, viewsets
 
 from .models import Topic
-from .permissions import IsOwner
 from .serializers import TargetSerializer, TopicSerializer
 
 
 class TargetViewSet(viewsets.ModelViewSet):
     serializer_class = TargetSerializer
-    permission_classes = [permissions.IsAuthenticated, IsOwner]
+    permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
@@ -16,7 +15,7 @@ class TargetViewSet(viewsets.ModelViewSet):
         return self.request.user.target_set.all()
 
 
-class TopicList(mixins.ListModelMixin, GenericViewSet):
+class TopicViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     queryset = Topic.objects.all()
     serializer_class = TopicSerializer
     permission_classes = [permissions.IsAuthenticated]
