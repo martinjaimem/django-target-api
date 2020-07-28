@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     # project apps
     'api',
     'applications.users',
+    'applications.contacts',
 ]
 
 MIDDLEWARE = [
