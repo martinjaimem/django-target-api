@@ -1,4 +1,5 @@
 from django.contrib.gis.geos import Point
+from django.utils.translation import ugettext_lazy as _
 from rest_framework import serializers
 
 from .models import Target, Topic
@@ -18,6 +19,13 @@ class TargetSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         validated_data['location'] = Point(validated_data['location']['x'], validated_data['location']['y'])
         return super().create(validated_data)
+
+    def validate(self, data):
+        user = self.context['request'].user
+        if user.target_set.count() >= Target.MAX_COUNT_TARGETS_PER_USER:
+            raise serializers.ValidationError(_('Maximum number of targets exceeded'))
+
+        return super().validate(data)
 
     class Meta:
         model = Target
