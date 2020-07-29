@@ -4,7 +4,7 @@ from applications.users.models import User
 
 
 class Topic(models.Model):
-    name = models.CharField(max_length=50, blank=False, default='')
+    name = models.CharField(max_length=50, default='', unique=True)
 
     def __str__(self):
         return self.name
@@ -15,10 +15,10 @@ class Topic(models.Model):
 
 class Target(models.Model):
     location = models.PointField()
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, blank=False)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     radius = models.PositiveIntegerField()
-    title = models.CharField(max_length=100, blank=False)
-    topic = models.ForeignKey(Topic, on_delete=models.CASCADE, blank=False)
+    title = models.CharField(max_length=100)
+    topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
